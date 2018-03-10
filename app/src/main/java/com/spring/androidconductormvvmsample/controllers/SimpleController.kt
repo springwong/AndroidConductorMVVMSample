@@ -10,6 +10,7 @@ import com.spring.androidconductormvvmsample.MainActivity
 import com.spring.androidconductormvvmsample.R
 import com.spring.androidconductormvvmsample.config.LOG_TAG
 import com.spring.androidconductormvvmsample.viewModel.SimpleViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.controller_simple.view.*
 import javax.inject.Inject
 
@@ -23,7 +24,9 @@ class SimpleController : Controller (){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         MainActivity.graph.inject(this)
         val view = inflater.inflate(R.layout.controller_simple, container, false)
-        viewModel.getMyProfile().subscribe({ next -> Log.d(LOG_TAG, "Github name : " + next.login)}, { error -> error.printStackTrace()})
+        viewModel.getMyProfile()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ next -> view.tvField.text = next.login}, { error -> error.printStackTrace()})
         return view
     }
 
