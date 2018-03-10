@@ -8,6 +8,10 @@ import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.spring.androidconductormvvmsample.config.LOG_TAG
 import com.spring.androidconductormvvmsample.controllers.SimpleController
+import com.spring.androidconductormvvmsample.dagger.ActivityComponent
+import com.spring.androidconductormvvmsample.dagger.ActivityModule
+import com.spring.androidconductormvvmsample.dagger.ApplicationComponent
+import com.spring.androidconductormvvmsample.dagger.DaggerActivityComponent
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -16,16 +20,16 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var router : Router
 
-    @field:[Inject Named("AnotherReference")]
-    lateinit var anotherString : String
+    companion object {
+        @JvmStatic lateinit var graph : ActivityComponent
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         MainApplication.graph.inject(this)
-
-        Log.d(LOG_TAG, "Activity Simple String : " + anotherString)
+        graph = DaggerActivityComponent.builder().activityModule(ActivityModule(this)).build()
 
         router = Conductor.attachRouter(this, this.mainContainer, savedInstanceState)
         if (!router.hasRootController()) {

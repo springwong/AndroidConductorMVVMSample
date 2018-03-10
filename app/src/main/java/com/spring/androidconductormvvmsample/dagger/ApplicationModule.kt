@@ -18,10 +18,7 @@ class ApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
+    @Named("SimpleReference")
     fun provideSimpleString() : String = "Simple String"
 
-    @Provides
-    @Singleton
-    @Named("AnotherReference")
-    fun provideAnotherString() : String = "Another String"
 }
