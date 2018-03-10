@@ -20,9 +20,12 @@ import javax.inject.Inject
 class SimpleController : Controller (){
     @Inject
     lateinit var viewModel : SimpleViewModel
+    
+    init {
+        MainActivity.graph.inject(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        MainActivity.graph.inject(this)
         val view = inflater.inflate(R.layout.controller_simple, container, false)
         viewModel.getMyProfile()
                 .observeOn(AndroidSchedulers.mainThread())
