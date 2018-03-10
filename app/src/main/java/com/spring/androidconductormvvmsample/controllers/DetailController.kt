@@ -4,6 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
+import com.jakewharton.rxbinding2.view.clicks
 import com.spring.androidconductormvvmsample.MainActivity
 import com.spring.androidconductormvvmsample.R
 import com.spring.androidconductormvvmsample.viewModel.SimpleViewModel
@@ -32,5 +35,13 @@ class DetailController : Controller() {
                     error ->
                 })
         return view
+    }
+
+    override fun onAttach(view: View) {
+        super.onAttach(view)
+        view.btnPopPush.clicks().subscribe({
+            next -> router.popCurrentController()
+            router.pushController(RouterTransaction.with(DetailController()).pushChangeHandler(VerticalChangeHandler()))
+        })
     }
 }

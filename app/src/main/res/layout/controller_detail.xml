@@ -29,5 +29,10 @@
                 android:text="last update time"/>
         </LinearLayout>
     </LinearLayout>
+    <Button
+        android:id="@+id/btnPopPush"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click Me to pop and push to another controller"/>
 
 </LinearLayout>
