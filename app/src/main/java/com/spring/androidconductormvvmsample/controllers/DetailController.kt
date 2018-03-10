@@ -20,6 +20,8 @@ import javax.inject.Inject
 class DetailController : Controller() {
     @Inject
     lateinit var viewModel : SimpleViewModel
+    @Inject
+    lateinit var flowControl: FlowControl
 
     init {
         MainActivity.graph.inject(this)
@@ -40,8 +42,7 @@ class DetailController : Controller() {
     override fun onAttach(view: View) {
         super.onAttach(view)
         view.btnPopPush.clicks().subscribe({
-            next -> router.popCurrentController()
-            router.pushController(RouterTransaction.with(DetailController()).pushChangeHandler(VerticalChangeHandler()))
+            flowControl.presentFromRoot(DetailController())
         })
     }
 }

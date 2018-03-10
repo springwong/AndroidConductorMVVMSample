@@ -11,7 +11,7 @@ import javax.inject.Singleton
  * Created by spring on 10/3/2018.
  */
 @Singleton
-@Component(modules =  arrayOf(ActivityModule::class, NetModule::class))
+@Component(modules =  arrayOf(ActivityModule::class, NetModule::class, FlowModule::class))
 interface ActivityComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(simpleController: SimpleController)

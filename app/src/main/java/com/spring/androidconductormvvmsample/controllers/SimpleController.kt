@@ -22,6 +22,8 @@ import javax.inject.Inject
 class SimpleController : Controller (){
     @Inject
     lateinit var viewModel : SimpleViewModel
+    @Inject
+    lateinit var flowControl: FlowControl
 
     init {
         MainActivity.graph.inject(this)
@@ -39,7 +41,7 @@ class SimpleController : Controller (){
         super.onAttach(view)
         getView()?.ivLauncher?.clicks()?.subscribe({
             next -> Log.d(LOG_TAG, "Clicked launcher")
-            router.pushController(RouterTransaction.with(DetailController()).pushChangeHandler(VerticalChangeHandler()))
+            flowControl.push(DetailController())
         })
     }
 }

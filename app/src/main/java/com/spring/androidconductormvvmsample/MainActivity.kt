@@ -8,10 +8,7 @@ import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.spring.androidconductormvvmsample.config.LOG_TAG
 import com.spring.androidconductormvvmsample.controllers.SimpleController
-import com.spring.androidconductormvvmsample.dagger.ActivityComponent
-import com.spring.androidconductormvvmsample.dagger.ActivityModule
-import com.spring.androidconductormvvmsample.dagger.ApplicationComponent
-import com.spring.androidconductormvvmsample.dagger.DaggerActivityComponent
+import com.spring.androidconductormvvmsample.dagger.*
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -28,10 +25,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        MainApplication.graph.inject(this)
-        graph = DaggerActivityComponent.builder().activityModule(ActivityModule(this)).build()
-
         router = Conductor.attachRouter(this, this.mainContainer, savedInstanceState)
+        MainApplication.graph.inject(this)
+        graph = DaggerActivityComponent.builder().flowModule(FlowModule(router)).activityModule(ActivityModule(this)).build()
+
         if (!router.hasRootController()) {
             router.setRoot(RouterTransaction.with(SimpleController()))
         }
