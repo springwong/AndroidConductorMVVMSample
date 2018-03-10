@@ -4,7 +4,9 @@ import android.util.Log
 import com.spring.androidconductormvvmsample.MainActivity
 import com.spring.androidconductormvvmsample.config.LOG_TAG
 import com.spring.androidconductormvvmsample.retrofit.GithubService
+import com.spring.androidconductormvvmsample.retrofit.User
 import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -19,8 +21,7 @@ class SimpleViewModel {
         MainActivity.graph.inject(this)
     }
 
-    fun helloWorld() {
-        Log.d(LOG_TAG, "Hello World")
-        service.getMyProfile().subscribeOn(Schedulers.newThread()).subscribe({ next -> Log.d(LOG_TAG, "Github name : " + next.login)}, { error -> error.printStackTrace()})
+    fun getMyProfile() : Single<User> {
+        return service.getMyProfile().subscribeOn(Schedulers.newThread())
     }
 }

@@ -1,11 +1,13 @@
 package com.spring.androidconductormvvmsample.controllers
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
 import com.spring.androidconductormvvmsample.MainActivity
 import com.spring.androidconductormvvmsample.R
+import com.spring.androidconductormvvmsample.config.LOG_TAG
 import com.spring.androidconductormvvmsample.viewModel.SimpleViewModel
 import javax.inject.Inject
 
@@ -19,7 +21,7 @@ class SimpleController : Controller (){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         MainActivity.graph.inject(this)
         val view = inflater.inflate(R.layout.controller_simple, container, false)
-        viewModel.helloWorld()
+        viewModel.getMyProfile().subscribe({ next -> Log.d(LOG_TAG, "Github name : " + next.login)}, { error -> error.printStackTrace()})
         return view
     }
 }
