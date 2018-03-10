@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Controller
+import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.VerticalChangeHandler
 import com.jakewharton.rxbinding2.view.clicks
 import com.spring.androidconductormvvmsample.MainActivity
 import com.spring.androidconductormvvmsample.R
@@ -20,7 +22,7 @@ import javax.inject.Inject
 class SimpleController : Controller (){
     @Inject
     lateinit var viewModel : SimpleViewModel
-    
+
     init {
         MainActivity.graph.inject(this)
     }
@@ -37,6 +39,7 @@ class SimpleController : Controller (){
         super.onAttach(view)
         getView()?.ivLauncher?.clicks()?.subscribe({
             next -> Log.d(LOG_TAG, "Clicked launcher")
+            router.pushController(RouterTransaction.with(DetailController()).pushChangeHandler(VerticalChangeHandler()))
         })
     }
 }
