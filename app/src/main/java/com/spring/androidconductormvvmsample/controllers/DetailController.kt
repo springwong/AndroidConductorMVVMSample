@@ -7,6 +7,8 @@ import com.bluelinelabs.conductor.Controller
 import com.spring.androidconductormvvmsample.MainActivity
 import com.spring.androidconductormvvmsample.R
 import com.spring.androidconductormvvmsample.viewModel.SimpleViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.controller_detail.view.*
 import javax.inject.Inject
 
 /**
@@ -22,6 +24,13 @@ class DetailController : Controller() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         val view = inflater.inflate(R.layout.controller_detail, container, false)
+        viewModel.getMyProfile().observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    next -> view.tvName.text = next.login
+                    view.tvLastUpdateDate.text = next.updated_at
+                }, {
+                    error ->
+                })
         return view
     }
 }
