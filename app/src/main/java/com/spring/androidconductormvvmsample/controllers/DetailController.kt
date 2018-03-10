@@ -47,5 +47,9 @@ class DetailController : Controller() {
         view.btnPush.clicks().subscribe({
             flowControl.push(DetailController())
         })
+
+        view.btnClear.clicks().subscribe({
+            viewModel.clearData()
+        })
     }
 }

@@ -17,8 +17,8 @@ import javax.inject.Inject
  */
 class SimpleViewModel {
     @Inject
-    lateinit var service: GithubService
-    var user : User? = null
+    protected lateinit var service: GithubService
+    private var user : User? = null
 
     constructor() {
         MainActivity.graph.inject(this)
@@ -31,4 +31,9 @@ class SimpleViewModel {
             return service.getMyProfile().doOnSuccess { success -> this.user = success }.subscribeOn(Schedulers.newThread())
         }
     }
+
+    fun clearData() {
+        user = null
+    }
+
 }

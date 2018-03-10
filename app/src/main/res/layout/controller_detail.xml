@@ -41,4 +41,10 @@
         android:layout_height="wrap_content"
         android:text="Click Me to push new controller"/>
 
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click me to clear user cache"/>
+
 </LinearLayout>
