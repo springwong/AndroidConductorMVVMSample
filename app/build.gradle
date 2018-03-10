@@ -36,6 +36,7 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.5'
     compile "io.reactivex.rxjava2:rxjava:2.1.10"
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
 }
 
