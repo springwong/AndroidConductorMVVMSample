@@ -2,7 +2,7 @@ package com.spring.androidconductormvvmsample
 
 import android.app.Application
 import android.util.Log
-import com.spring.androidconductormvvmsample.config.TAG
+import com.spring.androidconductormvvmsample.config.LOG_TAG
 import com.spring.androidconductormvvmsample.dagger.ApplicationComponent
 import com.spring.androidconductormvvmsample.dagger.ApplicationModule
 import com.spring.androidconductormvvmsample.dagger.DaggerApplicationComponent
@@ -24,6 +24,6 @@ class MainApplication : Application() {
         graph = DaggerApplicationComponent.builder().applicationModule(ApplicationModule(this)).build()
         graph.inject(this)
 
-        Log.d(TAG, "Simple String :" + simpleString)
+        Log.d(LOG_TAG, "Simple String :" + simpleString)
     }
 }

@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -18,4 +19,9 @@ class ApplicationModule(private val application: Application) {
     @Provides
     @Singleton
     fun provideSimpleString() : String = "Simple String"
+
+    @Provides
+    @Singleton
+    @Named("AnotherReference")
+    fun provideAnotherString() : String = "Another String"
 }
