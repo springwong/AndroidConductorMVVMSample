@@ -44,5 +44,8 @@ class DetailController : Controller() {
         view.btnPopPush.clicks().subscribe({
             flowControl.presentFromRoot(DetailController())
         })
+        view.btnPush.clicks().subscribe({
+            flowControl.push(DetailController())
+        })
     }
 }
